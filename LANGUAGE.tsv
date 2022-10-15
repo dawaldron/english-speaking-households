@@ -1,0 +1,94 @@
+LANGUAGE	languageSpoken
+0	N/A or blank
+1	English
+2	German
+3	Yiddish, Jewish
+4	Dutch
+5	Swedish
+6	Danish
+7	Norwegian
+8	Icelandic
+9	Scandinavian
+10	Italian
+11	French
+12	Spanish
+13	Portuguese
+14	Rumanian
+15	Celtic
+16	Greek
+17	Albanian
+18	Russian
+19	Ukrainian, Ruthenian, Little Russian
+20	Czech
+21	Polish
+22	Slovak
+23	Serbo-Croatian, Yugoslavian, Slavonian
+24	Slovene
+25	Lithuanian
+26	Other Balto-Slavic
+27	Slavic unknown
+28	Armenian
+29	Persian, Iranian, Farsi
+30	Other Persian dialects
+31	Hindi and related
+32	Romany, Gypsy
+33	Finnish
+34	Magyar, Hungarian
+35	Uralic
+36	Turkish
+37	Other Altaic
+38	Caucasian, Georgian, Avar
+39	Basque
+40	Dravidian
+41	Kurukh
+42	Burushaski
+43	Chinese
+44	Tibetan
+45	Burmese, Lisu, Lolo
+46	Kachin
+47	Thai, Siamese, Lao
+48	Japanese
+49	Korean
+50	Vietnamese
+51	Other East/Southeast Asian
+52	Indonesian
+53	Other Malayan
+54	Filipino, Tagalog
+55	Micronesian, Polynesian
+56	Hawaiian
+57	Arabic
+58	Near East Arabic dialect
+59	Hebrew, Israeli
+60	Amharic, Ethiopian, etc.
+61	Hamitic
+62	Other Afro-Asiatic languages
+63	Sub-Saharan Africa
+64	African, n.s.
+70	American Indian (all)
+71	Aleut, Eskimo
+72	Algonquian
+73	Salish, Flathead
+74	Athapascan
+75	Navajo
+76	Penutian-Sahaptin
+77	Other Penutian
+78	Zuni
+79	Yuman
+80	Other Hokan languages
+81	Siouan languages
+82	Muskogean
+83	Keres
+84	Iroquoian
+85	Caddoan
+86	Shoshonean/Hopi
+87	Pima, Papago
+88	Yaqui and other Sonoran, nec
+89	Aztecan, Nahuatl, Uto-Aztecan
+90	Tanoan languages
+91	Other Indian languages
+92	Mayan languages
+93	American Indian, n.s.
+94	Native
+95	No language
+96	Other or not reported
+99	Not reported, blank
