@@ -52,6 +52,8 @@ dt_acs <- fread('usa_00263.csv.gz')
 dt_acs[, parentNonenglish := 'Yes']
 dt_acs[LANGUAGE == 1, parentNonenglish := 'No']
 
+dt_acs[, nonEnglish := max(parentNonenglish, na.rm = TRUE), SERIAL]
+
 # select kids age 5-17
 dt_acs.kids <- dt_acs %>%
   .[AGE %in% 5:17,
@@ -113,7 +115,8 @@ dt_acs.kids.sum <- dt_acs.kids.all %>%
 # summarize by household: any English-speaking child with any non-English-speaking parent?
 dt_acs.kids.sum2 <- dt_acs.kids.sum %>%
   .[,
-    .(engChildNonEngPar = sum((childEnglish == 'Yes' & parentNonenglishAny == 'Yes') * 1, na.rm = TRUE) > 0),
+    .(childEnglish = sum((childEnglish == 'Yes') * 1, na.rm = TRUE) > 0,
+      engChildNonEngPar = sum((childEnglish == 'Yes' & parentNonenglishAny == 'Yes') * 1, na.rm = TRUE) > 0),
     .(SERIAL)]
 
 # match back to full dataset
@@ -124,10 +127,12 @@ dt_acs[is.na(engChildNonEngPar), engChildNonEngPar := FALSE]
 # by state
 dt_sum.by.st <- dt_acs %>%
   .[PERNUM == 1,
-    .(hhNonEngParEngChld = sum(engChildNonEngPar * HHWT),
+    .(hhNonEnglish = sum((nonEnglish == 'Yes') * HHWT),
+      hhNonEngParEngChld = sum(engChildNonEngPar * HHWT),
       hhTotal = sum(HHWT)),
     .(STATEFIP = sprintf('%02d', STATEFIP))] %>%
   dt_statefip[., on = 'STATEFIP'] %>%
+  .[, pctNonEnglish := round(100 * hhNonEnglish / hhTotal, 1)] %>%
   .[, pctNonEngParEngChld := round(100 * hhNonEngParEngChld / hhTotal, 1)] %>%
   .[order(-pctNonEngParEngChld)]
 
@@ -136,10 +141,12 @@ fwrite(dt_sum.by.st, 'sum-by-state.csv')
 # by metro
 dt_sum.by.msa <- dt_acs %>%
   .[PERNUM == 1,
-    .(hhNonEngParEngChld = sum(engChildNonEngPar * HHWT),
+    .(hhNonEnglish = sum((nonEnglish == 'Yes') * HHWT),
+      hhNonEngParEngChld = sum(engChildNonEngPar * HHWT),
       hhTotal = sum(HHWT)),
     .(MET2013 = sprintf('%05d', MET2013))] %>%
   dt_msa[., on = 'MET2013'] %>%
+  .[, pctNonEnglish := round(100 * hhNonEnglish / hhTotal, 1)] %>%
   .[, pctNonEngParEngChld := round(100 * hhNonEngParEngChld / hhTotal, 1)] %>%
   .[order(-pctNonEngParEngChld)]
 
@@ -148,12 +155,14 @@ fwrite(dt_sum.by.msa, 'sum-by-metro.csv')
 # by PUMA
 dt_sum.by.puma <- dt_acs %>%
   .[PERNUM == 1,
-    .(hhNonEngParEngChld = sum(engChildNonEngPar * HHWT),
+    .(hhNonEnglish = sum((nonEnglish == 'Yes') * HHWT),
+      hhNonEngParEngChld = sum(engChildNonEngPar * HHWT),
       hhTotal = sum(HHWT)),
     .(STATEFIP = sprintf('%02d', STATEFIP),
       PUMA = sprintf('%05d', PUMA))] %>%
   dt_statefip[., on = 'STATEFIP'] %>%
   dt_puma[., on = c('STATEFIP','PUMA')] %>%
+  .[, pctNonEnglish := round(100 * hhNonEnglish / hhTotal, 1)] %>%
   .[, pctNonEngParEngChld := round(100 * hhNonEngParEngChld / hhTotal, 1)] %>%
   .[order(-pctNonEngParEngChld)]
 
